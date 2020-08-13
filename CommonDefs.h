@@ -9,14 +9,14 @@
 #define define_unique_ptr(type) typedef std::unique_ptr<type> type##_uptr;
 
 typedef std::mutex stdMutex;
-typedef std::condition_variable stdConnditionvariable;
-typedef std::unique_lock<std::mutex> stdUniquelock;
-typedef std::thread stdthread;
+typedef std::condition_variable stdConditionVariable;
+typedef std::unique_lock<std::mutex> stdUniqueLock;
+typedef std::thread stdThread;
 typedef std::chrono::system_clock::time_point time_point;
 typedef std::chrono::system_clock::duration duration;
 
 define_ptr(stdMutex)
-define_ptr(stdConnditionvariable)
+define_ptr(stdConditionVariable)
 typedef unsigned int uint;
 
 
