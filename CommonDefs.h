@@ -5,8 +5,8 @@
 #include <mutex>
 #include <condition_variable>
 
-#define define_ptr(type) typedef std::shared_ptr<type> type##_sptr;
-#define define_unique_ptr(type) typedef std::unique_ptr<type> type##_uptr;
+#define define_ptr(type) typedef std::shared_ptr<type> type##_SPtr;
+#define define_unique_ptr(type) typedef std::unique_ptr<type> type##_UPtr;
 
 typedef std::mutex stdMutex;
 typedef std::condition_variable stdConditionVariable;
