@@ -5,8 +5,8 @@
 #include <mutex>
 #include <condition_variable>
 
-#define define_ptr(type) typedef std::shared_ptr<type> type##_SPtr;
-#define define_unique_ptr(type) typedef std::unique_ptr<type> type##_UPtr;
+#define DEFINE_PTR(type) typedef std::shared_ptr<type> type##_SPtr;
+#define DEFINE_UNIQUE_PTR(type) typedef std::unique_ptr<type> type##_UPtr;
 
 typedef std::mutex stdMutex;
 typedef std::condition_variable stdConditionVariable;
@@ -15,8 +15,8 @@ typedef std::thread stdThread;
 typedef std::chrono::system_clock::time_point time_point;
 typedef std::chrono::system_clock::duration duration;
 
-define_ptr(stdMutex)
-define_ptr(stdConditionVariable)
+DEFINE_PTR(stdMutex)
+DEFINE_PTR(stdConditionVariable)
 typedef unsigned int uint;
 
 
