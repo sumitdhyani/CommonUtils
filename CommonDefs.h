@@ -4,18 +4,25 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
-#define DEFINE_PTR(Type) typedef std::shared_ptr<Type> Type##_SPtr;
-#define DEFINE_UNIQUE_PTR(Type) typedef std::unique_ptr<Type> Type##_UPtr;
-typedef std::mutex stdMutex;
-typedef std::condition_variable stdConnditionVariable;
-typedef std::unique_lock<std::mutex> stdUniqueLock;
-typedef std::thread stdThread;
+
+#define define_ptr(type) typedef std::shared_ptr<type> type##_sptr;
+#define define_unique_ptr(type) typedef std::unique_ptr<type> type##_uptr;
+
+typedef std::mutex stdmutex;
+typedef std::condition_variable stdconnditionvariable;
+typedef std::unique_lock<std::mutex> stduniquelock;
+typedef std::thread stdthread;
 typedef std::chrono::system_clock::time_point time_point;
 typedef std::chrono::system_clock::duration duration;
 
-DEFINE_PTR(stdMutex)
-DEFINE_PTR(stdConnditionVariable)
+define_ptr(stdmutex)
+define_ptr(stdconnditionvariable)
+typedef unsigned int uint;
 
-time_point now();
 
-typedef unsigned int UINT;
+namespace ULCommonUtils
+{
+
+	time_point now();
+
+}

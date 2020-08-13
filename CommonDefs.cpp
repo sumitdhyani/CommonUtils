@@ -1,6 +1,9 @@
 #include "CommonDefs.h"
 
-time_point now()
+namespace ULCommonUtils
 {
-	return std::chrono::system_clock::now();
+	time_point now()
+	{
+		return std::chrono::system_clock::now();
+	}
 }
