@@ -57,6 +57,11 @@ namespace ULCommonUtils
 			return (size() == 0);
 		}
 
+		bool full()
+		{
+			return (size() == m_capacity);
+		}
+
 		T front()
 		{
 			if (empty())
