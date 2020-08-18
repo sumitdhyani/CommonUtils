@@ -1,5 +1,5 @@
 #pragma once
-#include "CommonDefs.h"
+#include "CommonDefs.hpp"
 #include <vector>
 
 namespace ULCommonUtils
