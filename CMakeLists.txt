@@ -12,5 +12,9 @@ if("${CMAKE_CURRENT_SOURCE_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
 	endif()
 endif()
 
+set (ALL_SOURCES RingBuffer.hpp
+CommonDefs.hpp)
+
 project(CommonUtils)
-add_library("${PROJECT_NAME}" STATIC  CommonDefs.cpp RingBuffer.cpp)
+add_library("${PROJECT_NAME}" STATIC  "${ALL_SOURCES}")
+set_target_properties("${PROJECT_NAME}" PROPERTIES LINKER_LANGUAGE CXX)
