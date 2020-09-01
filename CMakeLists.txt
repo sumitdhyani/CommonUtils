@@ -13,7 +13,8 @@ if("${CMAKE_CURRENT_SOURCE_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
 endif()
 
 set (ALL_SOURCES RingBuffer.hpp
-CommonDefs.hpp)
+CommonDefs.hpp
+Event.hpp)
 
 project(CommonUtils)
 add_library("${PROJECT_NAME}" STATIC  "${ALL_SOURCES}")
