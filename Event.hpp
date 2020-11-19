@@ -36,8 +36,8 @@ namespace ULCommonUtils
 
 		void operator()(ArgTypes... args)
 		{
-			for (auto listener : m_listeners)
-				listener.second(args...);
+			for (auto [id, listener] : m_listeners)
+				listener(args...);
 		}
 
 	private:

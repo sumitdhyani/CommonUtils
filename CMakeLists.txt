@@ -14,7 +14,8 @@ endif()
 
 set (ALL_SOURCES RingBuffer.hpp
 CommonDefs.hpp
-Event.hpp)
+Event.hpp
+PropertyTree.hpp)
 
 project(CommonUtils)
 add_library("${PROJECT_NAME}" STATIC  "${ALL_SOURCES}")
