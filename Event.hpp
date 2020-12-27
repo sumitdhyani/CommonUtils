@@ -53,27 +53,11 @@ namespace ULCommonUtils
 
 
 	template <class T, class... ArgTypes>
-	void generateHash(size_t& seed,
-		const T& val, const ArgTypes&... args)
+	size_t generateHash(const T& val, const ArgTypes&... args)
 	{
+		size_t seed = 0;
 		generateHash(seed, val);
 		generateHash(seed, args...);
-	}
-
-	//pass (int)this as second param
-	inline size_t generateHashForCallback(std::string functionName, size_t objId)
-	{
-		size_t seed = 0;
-		generateHash(seed, functionName, objId);
-
-		return seed;
-	}
-
-	inline size_t generateHashForCallback(std::string functionName)
-	{
-		size_t seed = 0;
-		generateHash(seed, functionName);
-
 		return seed;
 	}
 }
