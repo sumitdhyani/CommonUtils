@@ -18,5 +18,6 @@ Event.hpp
 PropertyTree.hpp)
 
 project(CommonUtils)
+target_include_directories("${PROJECT_NAME}" PUBLIC "$ENV{BOOST_ROOT}")
 add_library("${PROJECT_NAME}" STATIC  "${ALL_SOURCES}")
 set_target_properties("${PROJECT_NAME}" PROPERTIES LINKER_LANGUAGE CXX)
