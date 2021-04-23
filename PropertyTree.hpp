@@ -630,7 +630,7 @@ namespace ULCommonUtils
 					pt[currKey] = parseValues(jsonString, start);
 					currKey = "";
 				}
-				else if (isdigit(currentChar))
+				else if (isdigit(currentChar) || '-' == currentChar || '+' == currentChar)
 				{
 					auto val = parseValue(jsonString, start);
 					try
