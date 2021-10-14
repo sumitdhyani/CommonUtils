@@ -29,7 +29,7 @@ namespace ULCommonUtils
 				throw std::runtime_error("Invalid ID provided");
 		}
 
-		operator bool() const
+		bool empty() const
 		{
 			return m_listeners.empty();
 		}
@@ -45,10 +45,11 @@ namespace ULCommonUtils
 	};
 
 	template <typename T>
-	void generateHash(size_t& seed, const T& val)
+	size_t generateHash(const T& val)
 	{
-		seed ^= std::hash<T>()(val) + 0x9e3779b9
-			+ (seed << 6) + (seed >> 2);
+		size_t seed = 0;
+		seed = std::hash<T>()(val) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+		return seed;
 	}
 
 
@@ -56,8 +57,8 @@ namespace ULCommonUtils
 	size_t generateHash(const T& val, const ArgTypes&... args)
 	{
 		size_t seed = 0;
-		generateHash(seed, val);
-		generateHash(seed, args...);
+		seed = std::hash<T>()(val) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+		seed ^= generateHash(args...) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 		return seed;
 	}
 }
