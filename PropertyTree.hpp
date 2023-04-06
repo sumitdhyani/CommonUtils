@@ -36,13 +36,39 @@ namespace ULCommonUtils
 
 		Nodes(const ArrayElements& elements) : m_elements(elements) {}
 
+		Nodes(const Nodes& other) : m_elements(other.m_elements) {}
+
+		Nodes(Nodes&& other) : m_elements(other.m_elements)
+		{
+			Nodes empty;
+			swap(empty);
+			swap(other);
+		}
+
+		const Nodes& operator=(const Nodes& other)
+		{
+			if (&other != this)
+			{
+				Nodes temp(other);
+				swap(temp);
+			}
+
+			return *this;
+		}
+
+		const Nodes& operator=(Nodes&& other)
+		{
+			Nodes empty;
+			swap(empty);
+			swap(other);
+			return *this;
+		}
+
 		Nodes(size_t n, const ArrayElement& initializer) : m_elements(n, initializer) {}
 
-		Nodes(size_t n, ArrayElement&& initializer) : m_elements(n, initializer) {}
-
-		Nodes(ArrayElements&& elements)
+		void swap(Nodes& other)
 		{
-			m_elements.swap(elements);
+			m_elements.swap(other.m_elements);
 		}
 
 		iterator begin()
@@ -312,24 +338,15 @@ namespace ULCommonUtils
 
 		PropertyTree() {}
 
-		PropertyTree(const NodeContainer& init)
-		{
-			m_data = init;
-		}
+		PropertyTree(const NodeContainer& init) : m_data(init) {}
 
-		PropertyTree(NodeContainer&& init)
-		{
-			m_data.swap(init);
-		}
-
-		PropertyTree(const PropertyTree& other)
-		{
-			m_data = other.m_data;
-		}
+		PropertyTree(const PropertyTree& other) : m_data(other.m_data) {}
 
 		PropertyTree(PropertyTree&& other) noexcept
 		{
-			m_data.swap(other.m_data);
+			PropertyTree empty;
+			swap(empty);
+			swap(other);
 		}
 
 		void swap(PropertyTree& other)
@@ -339,25 +356,12 @@ namespace ULCommonUtils
 
 		const PropertyTree& operator=(const PropertyTree& other)
 		{
-			m_data = other.m_data;
-			return *this;
-		}
+			if (&other != this)
+			{
+				PropertyTree temp(other);
+				swap(temp);
+			}
 
-		const PropertyTree& operator=(PropertyTree&& other)
-		{
-			m_data.swap(other.m_data);
-			return *this;
-		}
-
-		const PropertyTree& operator=(const NodeContainer& init)
-		{
-			m_data = init;
-			return *this;
-		}
-
-		const PropertyTree& operator=(NodeContainer&& init)
-		{
-			m_data.swap(init);
 			return *this;
 		}
 
@@ -484,6 +488,11 @@ namespace ULCommonUtils
 				return std::to_string(num);
 			}
 
+			std::string operator()(size_t num) const
+			{
+				return std::to_string(num);
+			}
+
 			std::string operator()(double num) const
 			{
 				return boost::lexical_cast<std::string>(num);
@@ -516,7 +525,7 @@ namespace ULCommonUtils
 			}
 		};
 
-		typedef ULCommonUtils::PropertyTree<std::string, std::string, char, int, long long, double> PropertyTree;
+		typedef ULCommonUtils::PropertyTree<std::string, std::string, char, int, long long, size_t, double> PropertyTree;
 
 		PropertyTree deseraliseFromJSon(std::string jsonString, size_t& start);
 		PropertyTree::Nodes parseValues(std::string jsonString, size_t& start);
@@ -595,7 +604,7 @@ namespace ULCommonUtils
 
 			std::string currKey = "";
 
-			for (++start; start < jsonString.length();)
+			for (; start < jsonString.length(); ++start)
 			{
 				while ((jsonString[start] == ',') ||	//Skip the non-data characters
 					(jsonString[start] == ':') ||
@@ -630,7 +639,7 @@ namespace ULCommonUtils
 					pt[currKey] = parseValues(jsonString, start);
 					currKey = "";
 				}
-				else if (isdigit(currentChar) || '-' == currentChar || '+' == currentChar)
+				else if (isdigit(currentChar) || ('-' == currentChar) || ('+' == currentChar))
 				{
 					auto val = parseValue(jsonString, start);
 					try
@@ -748,7 +757,7 @@ namespace ULCommonUtils
 	}
 
 
-	inline ULCommonUtils::PropertyTree<std::string, std::string, char, int, long long, double> deseraliseFromJSon(std::string jsonString)
+	inline ULCommonUtils::PropertyTree<std::string, std::string, char, int, long long, size_t, double> deseraliseFromJSon(std::string jsonString)
 	{
 		size_t start = 0;
 		return deseraliseFromJSon(jsonString, start);
